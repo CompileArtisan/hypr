@@ -185,8 +185,8 @@ bind = $mainMod, E, exec, emacsclient -c -a "" & disown
 bind = ALT, Tab, cyclenext, bringactivetotop # to switch between tabs in currrent workspace
 bind = $mainMod, Tab, workspace, previous # to switch between tabs in all workspaces (like gnome)
 bind = $mainMod, L, exec, hyprlock
-bind = SUPER SHIFT, H, movetoworkspace, r-1
-bind = SUPER SHIFT, L, movetoworkspace, r+1
+bind = $mainMod SHIFT, H, movetoworkspace, r-1
+bind = $mainMod SHIFT, L, movetoworkspace, r+1
 #+end_src
 
 ** Move focus with $mainMod + arrow keys
