@@ -16,7 +16,8 @@ exec-once = qs -c noctalia-shell
 exec-once = emacsclient -c -a "" & disown
 exec-once = hypridle
 exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec-once = wl-paste --type text --watch cliphist store
+exec-once = hyprpm reload -n && hyprctl dispatch -- exec clipper
+bind = CTRL ALT, DELETE, exec, qs -c noctalia-shell ipc call sessionMenu toggle
 
 #+end_src
 
@@ -171,6 +172,7 @@ $mainMod = SUPER
 bind = CTRL ALT, T, exec, $terminal
 bind = $mainMod, Q, killactive,
 bind = $mainMod, M, exit,
+#bind = $mainMod, V, togglefloating,
 bind = $mainMod, V, togglefloating,
 bind = ALT, SPACE, exec, $menu
 bind = $mainMod, A, exec, $noctalia controlCenter toggle
