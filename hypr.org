@@ -18,6 +18,7 @@ exec-once = hypridle
 exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec-once = hyprpm reload -n && hyprctl dispatch -- exec clipper
 exec-once = clipse -listen # run listener on startup
+exec-once = powerprofilesctl set power-saver
 
 #+end_src
 
