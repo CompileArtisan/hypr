@@ -276,9 +276,9 @@ bind = ALT shift, k, movewindow, u
 bind = ALT shift, j, movewindow, d
 #+end_src
 
-** Floating Window Size
+** Resize Window
 #+begin_src conf :tangle hyprland.conf
-binde = SUPER, R, submap, resize
+binde = $mainMod, R, submap, resize
 submap = resize
 binde = , right, resizeactive, 10 0
 binde = , L, resizeactive, 10 0
@@ -288,12 +288,12 @@ binde = , up, resizeactive, 0 -10
 binde = , K, resizeactive, 0 -10
 binde = , down, resizeactive, 0 10
 binde = , J, resizeactive, 0 10
-binde = , escape, submap, reset
+binde = SUPER, R, submap, reset
 submap = reset
 
 # Or use mouse resizing (simpler)
-bindm = SUPER, mouse:272, movewindow
-bindm = SUPER, mouse:273, resizewindow
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
 #+end_src
 
 ** Laptop multimedia keys for volume and LCD brightness
