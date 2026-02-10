@@ -329,6 +329,17 @@ windowrule = match:class clipse, size 622 652
 
 ** Layer rules
 #+begin_src conf :tangle hyprland.conf
+layerrule {
+  name = layerrule-11
+  no_anim = on
+  match:namespace = hyprpicker
+}
+
+layerrule {
+  name = layerrule-12
+  no_anim = on
+  match:namespace = selection
+}
 #+end_src
 
 * Hypridle
