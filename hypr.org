@@ -10,9 +10,9 @@ $menu = $noctalia launcher toggle
 
 * Startup
 #+begin_src conf :tangle hyprland.conf
-exec-once = $terminal
+exec-once = $terminal 
 exec-once = nm-applet &
-exec-once = qs -c noctalia-shell
+exec-once = qs -c noctalia-shell &
 exec-once = hyprctl dispatch workspace 2 && emacsclient -c -a "" & disown
 exec-once = hypridle
 exec-once = /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
