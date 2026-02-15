@@ -1,0 +1,23 @@
+#!/bin/bash
+
+OUTPUT_DIR="$HOME/Screenshots"
+
+TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
+FILENAME="screenshot-$TIMESTAMP.png"
+
+# Ensure output directory exists for 'save' mode
+if [[ "$ACTION" == "save" && ! -d "$OUTPUT_DIR" ]]; then
+  mkdir -p "$OUTPUT_DIR" || {
+    notify-send "Failed to create screenshot directory: $OUTPUT_DIR"
+    exit 1
+  }
+fi
+
+hyprshot -sm output -m eDP-1 \
+  -o "$HOME/Screenshots" \
+  -f "screenshot-$TIMESTAMP.png"
+sleep 1
+
+# Send image
+/usr/bin/mudslide send-image <insert_Number> "$OUTPUT_DIR/$FILENAME" 
+

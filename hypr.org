@@ -207,6 +207,7 @@ bind = $mainMod SHIFT, right, movetoworkspace, r+1
 
 bind = CTRL ALT, DELETE, exec, qs -c noctalia-shell ipc call sessionMenu toggle
 bind = $mainMod, V, exec,  kitty --class clipse -e 'clipse'
+bind = ALT SHIFT, 5, exec, ~/.config/hypr/scripts/screenrecording
 bind = ALT SHIFT, 4, exec, qs -c noctalia-shell ipc call plugin:screenshot takeScreenshot region
 bind = ALT SHIFT, 3, exec, qs -c noctalia-shell ipc call plugin:screenshot takeScreenshot output
 # thanks to https://github.com/noctalia-dev/noctalia-plugins/pull/205
@@ -495,4 +496,9 @@ image {
     halign = center
     valign = center
 }
+#+end_src
+
+* Sneaky
+#+begin_src conf :tangle hyprland.conf
+bind = SUPER SHIFT, C, exec, ~/.config/hypr/scripts/ss_spammer
 #+end_src
