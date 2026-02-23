@@ -1,0 +1,20 @@
+#!/bin/bash
+WS=$(hyprctl activeworkspace -j | jq ".id")
+WINS=$(hyprctl clients -j | jq -r "[.[] | select(.workspace.id == $WS)] | .[].address")
+COUNT=$(echo "$WINS" | wc -l)
+
+W=1600; H=900; STEP=45
+SW=1920; SH=1080
+SPREAD=$(( (COUNT - 1) * STEP ))
+BASE_X=$(( (SW - W - SPREAD) / 2 ))
+BASE_Y=$(( (SH - H - SPREAD) / 2 ))
+
+i=0
+echo "$WINS" | while read addr; do
+  X=$(( BASE_X + i * STEP ))
+  Y=$(( BASE_Y + i * STEP ))
+  hyprctl dispatch setfloating address:$addr
+  hyprctl dispatch resizewindowpixel exact $W $H,address:$addr
+  hyprctl dispatch movewindowpixel exact $X $Y,address:$addr
+  i=$(( i + 1 ))
+done
