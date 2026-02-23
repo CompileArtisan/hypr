@@ -183,50 +183,18 @@ hyprexpo-gesture = 3, down, expo
 $mainMod = SUPER
 #+end_src
 
-** Toggles
+** Applications
 #+begin_src conf :tangle hyprland.conf
 bind = CTRL ALT, T, exec, $terminal
-bind = $mainMod, Q, killactive,
-bind = $mainMod, M, exit,
-bind = $mainMod, F, togglefloating,
-bind = $mainMod, F, resizeactive, exact 1600 900
-bind = $mainMod, F, centerwindow,
-bind = ALT, SPACE, exec, $menu
-bind = $mainMod, A, exec, $noctalia controlCenter toggle
-bind = $mainMod, P, pseudo, # dwindle
-bind = $mainMod, D, togglesplit, # dwindle
 bind = $mainMod, 1, exec, firefox --new-window https://web.whatsapp.com 
 bind = $mainMod, 2, exec, firefox
 bind = $mainMod, 3, exec, nautilus
 bind = $mainMod, E, exec, emacsclient -c -a "" & disown
-bind = ALT, Tab, cyclenext, floating
-bind = ALT, Tab, bringactivetotop,
-# bind = $mainmod, tab, workspace, previous # to switch between tabs in all workspaces (like gnome)
-bind = CTRL ALT, L, exec, hyprlock
-bind = $mainMod SHIFT, H, movetoworkspace, r-1
-bind = $mainMod SHIFT, left, movetoworkspace, r-1
-bind = $mainMod SHIFT, L, movetoworkspace, r+1
-bind = $mainMod SHIFT, right, movetoworkspace, r+1
-
-bind = CTRL ALT, DELETE, exec, qs -c noctalia-shell ipc call sessionMenu toggle
 bind = $mainMod, V, exec,  kitty --class clipse -e 'clipse'
-bind = ALT SHIFT, 5, exec, ~/.config/hypr/scripts/screenrecording
-bind = ALT SHIFT, 4, exec, qs -c noctalia-shell ipc call plugin:screenshot takeScreenshot region
-bind = ALT SHIFT, 3, exec, bash -c 'TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S); hyprshot -sm output -m eDP-1 -o "$HOME/Screenshots" -f "screenshot-$TIMESTAMP.png"'
-# thanks to https://github.com/noctalia-dev/noctalia-plugins/pull/205
-
-# Stack all windows (float + center them overlapping)
-bind = $mainMod, TAB, exec, ~/.config/hypr/scripts/stack
-bind = $mainMod, TAB, submap, tabpress
-
-submap = tabpress
-bind = $mainMod, TAB, exec, ~/.config/hypr/scripts/unstack
-bind = $mainMod, TAB, submap, reset
-bind = , catchall, submap, reset
-submap = reset
 #+end_src
 
-** Move focus with $mainMod + arrow keys
+** Window Management
+*** Focus
 #+begin_src conf :tangle hyprland.conf
 bind = $mainMod, left, movefocus, l
 bind = $mainMod, h, movefocus, l
@@ -238,60 +206,18 @@ bind = $mainMod, down, movefocus, d
 bind = $mainMod, j, movefocus, d
 
 #+end_src
-
-** Switch workspaces with ALT + [0-9]
+*** Move
 #+begin_src conf :tangle hyprland.conf
-bind = ALT, 1, workspace, 1
-bind = ALT, 2, workspace, 2
-bind = ALT, 3, workspace, 3
-bind = ALT, 4, workspace, 4
-bind = ALT, 5, workspace, 5
-bind = ALT, 6, workspace, 6
-bind = ALT, 7, workspace, 7
-bind = ALT, 8, workspace, 8
-bind = ALT, 9, workspace, 9
-bind = ALT, 0, workspace, 10
-#+end_src
-
-** Move active window to a workspace with mainMod + SHIFT + [0-9]
-#+begin_src conf :tangle hyprland.conf
-bind = $mainMod SHIFT, 1, movetoworkspace, 1
-bind = $mainMod SHIFT, 2, movetoworkspace, 2
-bind = $mainMod SHIFT, 3, movetoworkspace, 3
-bind = $mainMod SHIFT, 4, movetoworkspace, 4
-bind = $mainMod SHIFT, 5, movetoworkspace, 5
-bind = $mainMod SHIFT, 6, movetoworkspace, 6
-bind = $mainMod SHIFT, 7, movetoworkspace, 7
-bind = $mainMod SHIFT, 8, movetoworkspace, 8
-bind = $mainMod SHIFT, 9, movetoworkspace, 9
-bind = $mainMod SHIFT, 0, movetoworkspace, 10
-
-#+end_src
-** Scratchpad
-#+begin_src conf :tangle hyprland.conf
-bind = $mainMod, S, togglespecialworkspace, magic
-bind = $mainMod SHIFT, S, movetoworkspace, special:magic
-
-#+end_src
-
-** Scroll through existing workspaces with mainMod + scroll
-#+begin_src conf :tangle hyprland.conf
-bind = $mainMod, mouse_down, workspace, e+1
-bind = $mainMod, mouse_up, workspace, e-1
-
-#+end_src
-
-** Move/resize windows with mainMod + LMB/RMB and dragging
-#+begin_src conf :tangle hyprland.conf
-bindm = $mainMod, mouse:272, movewindow
-bindm = $mainMod, mouse:273, resizewindow
 bind = ALT shift, h, movewindow, l
 bind = ALT shift, l, movewindow, r
 bind = ALT shift, k, movewindow, u
 bind = ALT shift, j, movewindow, d
+bind = $mainMod SHIFT, H, movetoworkspace, r-1
+bind = $mainMod SHIFT, left, movetoworkspace, r-1
+bind = $mainMod SHIFT, L, movetoworkspace, r+1
+bind = $mainMod SHIFT, right, movetoworkspace, r+1
 #+end_src
-
-** Resize Window
+*** Resize
 #+begin_src conf :tangle hyprland.conf
 binde = $mainMod, R, submap, resize
 submap = resize
@@ -306,57 +232,93 @@ binde = , J, resizeactive, 0 20
 binde = SUPER, R, submap, reset
 binde = , escape, submap, reset
 submap = reset
-
-# Or use mouse resizing (simpler)
-bindm = $mainMod, mouse:272, movewindow
-bindm = $mainMod, mouse:273, resizewindow
 #+end_src
-
-** Laptop multimedia keys for volume and LCD brightness
+*** Float and Layout
 #+begin_src conf :tangle hyprland.conf
-bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
-bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bindel = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindel = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-bindel = ,XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
-bindel = ,XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
-
-bindl = , XF86AudioNext, exec, playerctl next
-bindl = , XF86AudioPause, exec, playerctl play-pause
-bindl = , XF86AudioPlay, exec, playerctl play-pause
-bindl = , XF86AudioPrev, exec, playerctl previous
-
+bind = $mainMod, F, togglefloating,
+bind = $mainMod, F, resizeactive, exact 1600 900
+bind = $mainMod, F, centerwindow,
+bind = $mainMod, P, pseudo, # dwindle
+bind = $mainMod, D, togglesplit, # dwindle
+bind = ALT, Tab, cyclenext, floating
+bind = ALT, Tab, bringactivetotop,
 #+end_src
-
-
-
-** Mouse
+*** Stack
 #+begin_src conf :tangle hyprland.conf
+bind = $mainMod, TAB, exec, ~/.config/hypr/scripts/stack
+bind = $mainMod, TAB, submap, tabpress
+submap = tabpress
+bind = $mainMod, TAB, exec, ~/.config/hypr/scripts/unstack
+bind = $mainMod, TAB, submap, reset
+bind = , catchall, submap, reset
+submap = reset
 #+end_src
-
-* Rules
-** Window rules
+** Toggles
 #+begin_src conf :tangle hyprland.conf
-windowrule = match:class clipse, float true 
-windowrule = match:class clipse, size 622 652 
+bind = $mainMod, Q, killactive,
+bind = $mainMod, M, exit,
+bind = ALT, SPACE, exec, $menu
+bind = $mainMod, A, exec, $noctalia controlCenter toggle
+# bind = $mainmod, tab, workspace, previous # to switch between tabs in all workspaces (like gnome)
+bind = CTRL ALT, L, exec, hyprlock
+
+bind = CTRL ALT, DELETE, exec, qs -c noctalia-shell ipc call sessionMenu toggle
+bind = ALT SHIFT, 5, exec, ~/.config/hypr/scripts/screenrecording
+bind = ALT SHIFT, 4, exec, qs -c noctalia-shell ipc call plugin:screenshot takeScreenshot region
+bind = ALT SHIFT, 3, exec, bash -c 'TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S); hyprshot -sm output -m eDP-1 -o "$HOME/Screenshots" -f "screenshot-$TIMESTAMP.png"'
+# thanks to https://github.com/noctalia-dev/noctalia-plugins/pull/205
+
 #+end_src
 
-** Layer rules
+
+** Workspaces
+*** Switch
 #+begin_src conf :tangle hyprland.conf
-layerrule {
-  name = layerrule-11
-  no_anim = on
-  match:namespace = hyprpicker
-}
-
-layerrule {
-  name = layerrule-12
-  no_anim = on
-  match:namespace = selection
-}
+bind = ALT, 1, workspace, 1
+bind = ALT, 2, workspace, 2
+bind = ALT, 3, workspace, 3
+bind = ALT, 4, workspace, 4
+bind = ALT, 5, workspace, 5
+bind = ALT, 6, workspace, 6
+bind = ALT, 7, workspace, 7
+bind = ALT, 8, workspace, 8
+bind = ALT, 9, workspace, 9
+bind = ALT, 0, workspace, 10
 #+end_src
 
-* Hypridle
+*** Move Window to Workspace
+#+begin_src conf :tangle hyprland.conf
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 10
+
+#+end_src
+*** Scratchpad
+#+begin_src conf :tangle hyprland.conf
+bind = $mainMod, S, togglespecialworkspace, magic
+bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+
+#+end_src
+
+** System
+*** Session
+#+begin_src conf :tangle hyprland.conf
+bind = $mainMod, Q, killactive,
+bind = $mainMod, M, exit,
+bind = ALT, SPACE, exec, $menu
+bind = $mainMod, A, exec, $noctalia controlCenter toggle
+bind = CTRL ALT, L, exec, hyprlock
+bind = CTRL ALT, DELETE, exec, qs -c noctalia-shell ipc call sessionMenu toggle
+#+end_src
+
+*** Hypridle
 #+begin_src conf :tangle hypridle.conf
 general {
     lock_cmd = pidof hyprlock || hyprlock       # avoid starting multiple hyprlock instances.
@@ -391,7 +353,7 @@ listener {
 }
 #+end_src
 
-* Hyprlock
+*** Hyprlock
 #+begin_src conf :tangle hyprlock.conf
 general {
     immediate_render = true
@@ -508,6 +470,64 @@ image {
     position = 0, -353
     halign = center
     valign = center
+}
+#+end_src
+
+** Scroll through existing workspaces with mainMod + scroll
+#+begin_src conf :tangle hyprland.conf
+bind = $mainMod, mouse_down, workspace, e+1
+bind = $mainMod, mouse_up, workspace, e-1
+
+#+end_src
+
+** Move/resize windows with mainMod + LMB/RMB and dragging
+#+begin_src conf :tangle hyprland.conf
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+#+end_src
+
+** Mouse
+#+begin_src conf :tangle hyprland.conf
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+#+end_src
+
+** Laptop multimedia keys for volume and LCD brightness
+#+begin_src conf :tangle hyprland.conf
+bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindel = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindel = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindel = ,XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
+bindel = ,XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
+
+bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioPause, exec, playerctl play-pause
+bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl = , XF86AudioPrev, exec, playerctl previous
+
+#+end_src
+
+
+* Rules
+** Window rules
+#+begin_src conf :tangle hyprland.conf
+windowrule = match:class clipse, float true 
+windowrule = match:class clipse, size 622 652 
+#+end_src
+
+** Layer rules
+#+begin_src conf :tangle hyprland.conf
+layerrule {
+  name = layerrule-11
+  no_anim = on
+  match:namespace = hyprpicker
+}
+
+layerrule {
+  name = layerrule-12
+  no_anim = on
+  match:namespace = selection
 }
 #+end_src
 
