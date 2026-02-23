@@ -255,14 +255,7 @@ submap = reset
 #+end_src
 ** Toggles
 #+begin_src conf :tangle hyprland.conf
-bind = $mainMod, Q, killactive,
-bind = $mainMod, M, exit,
-bind = ALT, SPACE, exec, $menu
-bind = $mainMod, A, exec, $noctalia controlCenter toggle
-# bind = $mainmod, tab, workspace, previous # to switch between tabs in all workspaces (like gnome)
-bind = CTRL ALT, L, exec, hyprlock
 
-bind = CTRL ALT, DELETE, exec, qs -c noctalia-shell ipc call sessionMenu toggle
 bind = ALT SHIFT, 5, exec, ~/.config/hypr/scripts/screenrecording
 bind = ALT SHIFT, 4, exec, qs -c noctalia-shell ipc call plugin:screenshot takeScreenshot region
 bind = ALT SHIFT, 3, exec, bash -c 'TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S); hyprshot -sm output -m eDP-1 -o "$HOME/Screenshots" -f "screenshot-$TIMESTAMP.png"'
