@@ -3,7 +3,7 @@ WS=$(hyprctl activeworkspace -j | jq ".id")
 WINS=$(hyprctl clients -j | jq -r "[.[] | select(.workspace.id == $WS)] | .[].address")
 COUNT=$(echo "$WINS" | wc -l)
 
-W=1600; H=900; STEP=45
+W=1680; H=945; STEP=25
 SW=1920; SH=1080
 SPREAD=$(( (COUNT - 1) * STEP ))
 BASE_X=$(( (SW - W - SPREAD) / 2 ))
