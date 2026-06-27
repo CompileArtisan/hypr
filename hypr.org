@@ -114,7 +114,6 @@ animations {
 }
 
 dwindle {
-    pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
     preserve_split = true # You probably want this
 }
 
@@ -171,7 +170,6 @@ plugin {
         bg_col = rgb(111111)
         workspace_method = center current # [center/first] [workspace] e.g. first 1 or center m+1
 
-        gesture_distance = 300 # how far is the "max" for the gesture
     }
 }
 hyprexpo-gesture = 3, up, expo
@@ -239,7 +237,6 @@ bind = $mainMod, F, togglefloating,
 bind = $mainMod, F, resizeactive, exact 1600 900
 bind = $mainMod, F, centerwindow,
 bind = $mainMod, P, pseudo, # dwindle
-bind = $mainMod, D, togglesplit, # dwindle
 bind = ALT, Tab, cyclenext, floating
 bind = ALT, Tab, bringactivetotop,
 #+end_src
